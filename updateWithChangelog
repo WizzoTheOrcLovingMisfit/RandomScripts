@@ -7,21 +7,21 @@ today=$(date +"%Y-%m-%d")
 
 	echo 'The system update started at '$now
 
-	cp /var/log/apt/term.log /home/nick/Documents/LOGFILES/ARCHIVE/before.txt
+	cp /var/log/apt/term.log /home/ethan/Documents/LOGFILES/ARCHIVE/before.txt
 	
 	apt-get update -y
 	
 	apt-get upgrade -y --with-new-pkgs
 	
-	cp /var/log/apt/term.log /home/nick/Documents/LOGFILES/ARCHIVE/after.txt
+	cp /var/log/apt/term.log /home/ethan/Documents/LOGFILES/ARCHIVE/after.txt
 	
-	diff /home/nick/Documents/LOGFILES/ARCHIVE/before.txt /home/nick/Documents/LOGFILES/ARCHIVE/after.txt | grep ">" >> /home/nick/Documents/LOGFILES/ARCHIVE/upgradechanges_$today.txt
+	diff /home/ethan/Documents/LOGFILES/ARCHIVE/before.txt /home/ethan/Documents/LOGFILES/ARCHIVE/after.txt | grep ">" >> /home/ethan/Documents/LOGFILES/ARCHIVE/upgradechanges_$today.txt
 	
-	rm /home/nick/Documents/LOGFILES/ARCHIVE/before.txt /home/nick/Documents/LOGFILES/ARCHIVE/after.txt
+	rm /home/ethan/Documents/LOGFILES/ARCHIVE/before.txt /home/ethan/Documents/LOGFILES/ARCHIVE/after.txt
 	
-	filesize=$( du /home/nick/Documents/LOGFILES/ARCHIVE/upgradechanges_$today.txt )
+	filesize=$( du /home/ethan/Documents/LOGFILES/ARCHIVE/upgradechanges_$today.txt )
 	
-	if [ "$filesize" = "0	/home/nick/Documents/LOGFILES/ARCHIVE/upgradechanges_$today.txt" ]; then
+	if [ "$filesize" = "0	/home/ethan/Documents/LOGFILES/ARCHIVE/upgradechanges_$today.txt" ]; then
 	
 		echo 'There were no updates'
 	
