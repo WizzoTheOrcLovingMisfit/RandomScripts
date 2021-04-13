@@ -1,0 +1,32 @@
+#/bin/bash
+#This script will update the system and a logfile will be created when this script is run using crontab
+# today=$(date +"%Y-%m-%d")
+
+start=$(date)
+today=$(date +"%Y-%m-%d")
+
+	echo 'The system update started at '$now
+
+	cp /var/log/apt/term.log /home/nick/Documents/LOGFILES/ARCHIVE/before.txt
+	
+	apt-get update -y
+	
+	apt-get upgrade -y --with-new-pkgs
+	
+	cp /var/log/apt/term.log /home/nick/Documents/LOGFILES/ARCHIVE/after.txt
+	
+	diff /home/nick/Documents/LOGFILES/ARCHIVE/before.txt /home/nick/Documents/LOGFILES/ARCHIVE/after.txt | grep ">" >> /home/nick/Documents/LOGFILES/ARCHIVE/upgradechanges_$today.txt
+	
+	rm /home/nick/Documents/LOGFILES/ARCHIVE/before.txt /home/nick/Documents/LOGFILES/ARCHIVE/after.txt
+	
+	filesize=$( du /home/nick/Documents/LOGFILES/ARCHIVE/upgradechanges_$today.txt )
+	
+	if [ "$filesize" = "0	/home/nick/Documents/LOGFILES/ARCHIVE/upgradechanges_$today.txt" ]; then
+	
+		echo 'There were no updates'
+	
+	fi
+
+end=$(date)
+
+	echo 'The system update has completed at ' $end
